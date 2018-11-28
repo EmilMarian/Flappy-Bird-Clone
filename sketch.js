@@ -75,6 +75,7 @@ function draw() {
 
   bird.update();
   bird.show();
+  bird.think();
 
   if ((frameCount - gameoverFrame) % 150 == 0) {
     pipes.push(new Pipe());
@@ -90,9 +91,11 @@ function draw() {
 
   // if user has touched then make bird jump
   // also checks if not touched before
+  /*
   if (touched && !prevTouched) {
     bird.up();
   }
+  */
 
   // updates prevTouched
   prevTouched = touched;

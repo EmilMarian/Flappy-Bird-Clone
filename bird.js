@@ -5,7 +5,6 @@
 
 // Class is exported (eslint flag)
 /* exported Bird */
-
 class Bird {
   constructor() {
     this.y = height / 2;
@@ -18,6 +17,8 @@ class Bird {
     this.icon = birdSprite;
     this.width = 64;
     this.height = 64;
+
+    this.brain = new NeuralNetwork(4, 4, 1);
   }
 
   show() {
@@ -27,6 +28,14 @@ class Bird {
 
   up() {
     this.velocity = this.lift;
+  }
+
+  think(){
+    let inputs = [1.0, 0.5, 0.2, 0.3];
+    let output = this.brain.predict(inputs);
+    if(output > 0.5){
+      this.up();
+    }
   }
 
   update() {
