@@ -66,17 +66,20 @@ function draw() {
     pipes[i].update();
     pipes[i].show();
 
+    for(let j = birds.length - 1; j >= 0; j--){
+      if (pipes[i].offscreen()) {
+        pipes.splice(j, 1);
+      }
+    }
     if (pipes[i].pass(bird)) {
       score++;
     }
 
     if (pipes[i].hits(bird)) {
-      gameover();
+      reset();
     }
 
-    if (pipes[i].offscreen()) {
-      pipes.splice(i, 1);
-    }
+
   }
   for (let bird of birds){
     bird.think(pipes);
