@@ -9,7 +9,7 @@
 // Exported sprites (eslint flags)
 /* exported birdSprite, pipeBodySprite, pipePeakSprite */
 
-var bird;
+let birds = [];
 var pipes;
 var parallax = 0.8;
 var score = 0;
@@ -25,6 +25,7 @@ var isOver = false;
 var touched = false;
 var prevTouched = touched;
 
+const TOTAL_BIRDS = 250; 
 
 function preload() {
   pipeBodySprite = loadImage('graphics/pipe_marshmallow_fix.png');
@@ -35,6 +36,11 @@ function preload() {
 
 function setup() {
   createCanvas(800, 600);
+
+  for(let i = 0; i < TOTAL_BIRDS; i++){
+    birds[i] = new Bird();
+  }
+
   reset();
 }
 
@@ -72,10 +78,13 @@ function draw() {
       pipes.splice(i, 1);
     }
   }
+  for (let bird of birds){
+    bird.think(pipes);
+    bird.update();
+    bird.show();
+  }
 
-  bird.update();
-  bird.show();
-  bird.think(pipes);
+  
 
   if ((frameCount - gameoverFrame) % 150 == 0) {
     pipes.push(new Pipe());

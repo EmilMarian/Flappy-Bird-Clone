@@ -31,14 +31,26 @@ class Bird {
   }
 
   think(pipes){
+
+    //Find the closest pipe
+    let closest = null;
+    let closestD = Infinity;
+    for (let i = 0; i < pipes.length; i++){
+      let d = pipes[i].x - this.x;
+      if(d < closestD && d > 0){
+        closest = pipes[i];
+        closestD = d;
+      }
+    }
+
     let inputs = [];
     inputs[0] = this.y / this.height;
-    inputs[1] = pipes[0].top / this.height;
-    inputs[2] = pipes[0].bottom / this.height;
-    inputs[3] = pipes[0].x / this.width;
+    inputs[1] = closest.top / this.height;
+    inputs[2] = closest.bottom / this.height;
+    inputs[3] = closest.x / this.width;
 
     let output = this.brain.predict(inputs);
-    if(output > 0.5){
+    if(output[0] > 0.5){
       this.up();
     }
   }
