@@ -30,8 +30,13 @@ class Bird {
     this.velocity = this.lift;
   }
 
-  think(){
-    let inputs = [1.0, 0.5, 0.2, 0.3];
+  think(pipes){
+    let inputs = [];
+    inputs[0] = this.y / this.height;
+    inputs[1] = pipes[0].top / this.height;
+    inputs[2] = pipes[0].bottom / this.height;
+    inputs[3] = pipes[0].x / this.width;
+
     let output = this.brain.predict(inputs);
     if(output > 0.5){
       this.up();

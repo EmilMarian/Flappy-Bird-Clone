@@ -75,7 +75,7 @@ function draw() {
 
   bird.update();
   bird.show();
-  bird.think();
+  bird.think(pipes);
 
   if ((frameCount - gameoverFrame) % 150 == 0) {
     pipes.push(new Pipe());
