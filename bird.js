@@ -18,7 +18,9 @@ class Bird {
     this.width = 64;
     this.height = 64;
 
-    this.brain = new NeuralNetwork(4, 4, 1);
+    this.score = 0;
+    this.fitness = 0;
+    this.brain = new NeuralNetwork(4, 4, 2);
   }
 
   show() {
@@ -56,6 +58,7 @@ class Bird {
   }
 
   update() {
+    this.score++;
     this.velocity += this.gravity;
     this.y += this.velocity;
 
