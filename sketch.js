@@ -10,7 +10,7 @@
 /* exported birdSprite, pipeBodySprite, pipePeakSprite */
 
 let birds = [];
-var pipes;
+let pipes = [];
 var parallax = 0.8;
 var score = 0;
 var maxScore = 0;
@@ -67,22 +67,20 @@ function draw() {
     pipes[i].show();
 
     for(let j = birds.length - 1; j >= 0; j--){
-      if (pipes[i].offscreen()) {
-        pipes.splice(j, 1);
+      if (pipes[i].hits(birds[j])) {
+        birds.splice(j, 1);
       }
     }
-    if (pipes[i].pass(bird)) {
-      score++;
+    
+    if(pipes[i].offscreen()){
+      pipes.splice(i,1);
     }
-
-    if (pipes[i].hits(bird)) {
-      reset();
-    }
-
 
   }
   for (let bird of birds){
-    bird.think(pipes);
+    if(pipes.length > 0){
+      bird.think(pipes);
+    }
     bird.update();
     bird.show();
   }
